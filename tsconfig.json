@@ -1,18 +1,19 @@
 {
-    "ts-node": {
-        "transpileOnly": true
+  "ts-node": {
+    "transpileOnly": true
+  },
+  "exclude": ["node_modules/**/*", "test/**/*"],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "target": "es2017",
+    "lib": ["es2017", "dom"],
+    "paths": {
+      "*": ["./declarations"]
     },
-    "exclude": ["test", "node_modules"],
-    "compilerOptions": {
-        "baseUrl": ".",
-        "esModuleInterop": true,
-        "target": "es2017",
-        "lib": ["es2017", "dom"],
-        "paths": {
-            "*": ["./declarations"]
-        },
-        "typeRoots": ["./node_modules/@types"],
-        "module": "commonjs",
-        "noEmit": true
-    }
+    "typeRoots": ["./node_modules/@types"],
+    "module": "commonjs",
+    "noEmit": true
+  }
 }
