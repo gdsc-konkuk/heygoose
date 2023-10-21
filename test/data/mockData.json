@@ -60,12 +60,6 @@
     "date": "today"
   },
   {
-    "to": "USER3",
-    "from": "USER4",
-    "type": "dec",
-    "date": "today"
-  },
-  {
     "to": "USER1",
     "from": "USER2",
     "type": "dec",
@@ -100,6 +94,12 @@
     "from": "USER3",
     "type": "inc",
     "date": "random"
+  },
+  {
+    "to": "USER3",
+    "from": "USER4",
+    "type": "dec",
+    "date": "today"
   },
   {
     "to": "USER2",
