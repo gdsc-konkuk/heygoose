@@ -1,63 +1,64 @@
 class Hey {
-    constructor() {
-        this.socket = new WebSocket(`ws://${window.location.hostname}:3334`);
-        this.events = {};
-        this.open = false;
+  constructor() {
+    this.socket = new WebSocket(`ws://${window.location.hostname}:3334`);
+    this.events = {};
+    this.open = false;
 
-        this.socket.addEventListener('open', () => {
-            this.open = true;
-            this.emit('open');
-        });
+    this.socket.addEventListener('open', () => {
+      this.open = true;
+      this.emit('open');
+    });
 
-        this.socket.onmessage = (e) => this.onMessage(e);
+    this.socket.onmessage = (e) => this.onMessage(e);
+  }
+
+  onMessage(e) {
+    if (!e.data) {
+      return;
     }
 
-    onMessage(e) {
-        if (!e.data) {
-            return;
-        }
+    const obj = JSON.parse(e.data);
+    this.emit(obj.event, obj.data);
+  }
 
-        const obj = JSON.parse(e.data);
-        this.emit(obj.event, obj.data);
+  get(event, data) {
+    this.socket.send(JSON.stringify({ event, data }));
+  }
+
+  on(event, listener) {
+    if (typeof this.events[event] !== 'object') {
+      this.events[event] = [];
     }
 
-    get(event, data) {
-        this.socket.send(JSON.stringify({ event, data }));
+    this.events[event].push(listener);
+
+    if (event === 'open' && this.open) {
+      this.emit('open');
     }
+  }
 
-    on(event, listener) {
-        if (typeof this.events[event] !== 'object') {
-            this.events[event] = [];
-        }
+  off(event, listener) {
+    let idx;
 
-        this.events[event].push(listener);
+    if (typeof this.events[event] === 'object') {
+      // eslint-disable-next-line
+      idx = indexOf(this.events[event], listener);
 
-        if (event === 'open' && this.open) {
-            this.emit('open');
-        }
+      if (idx > -1) {
+        this.events[event].splice(idx, 1);
+      }
     }
+  }
 
-    off(event, listener) {
-        let idx;
+  emit(event, ...args) {
+    if (typeof this.events[event] === 'object') {
+      const listeners = this.events[event].slice();
 
-        if (typeof this.events[event] === 'object') {
-            idx = indexOf(this.events[event], listener);
-
-            if (idx > -1) {
-                this.events[event].splice(idx, 1);
-            }
-        }
+      listeners.forEach((listener) => {
+        listener.apply(this, args);
+      });
     }
-
-    emit(event, ...args) {
-        if (typeof this.events[event] === 'object') {
-            const listeners = this.events[event].slice();
-
-            listeners.forEach((listener) => {
-                listener.apply(this, args);
-            });
-        }
-    }
+  }
 }
 
 window.hey = new Hey();

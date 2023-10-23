@@ -9,6 +9,6 @@ const { slackMock } = config.misc;
 log.debug('Slack mockApi loaded', slackMock);
 
 export default {
-    rtm: slackMock ? new RTMMock() : new RTMClient(config.slack.api_token),
-    wbc: slackMock ? new WebMock() : new WebClient(config.slack.api_token),
+  rtm: slackMock ? new RTMMock() : new RTMClient(config.slack.api_token),
+  wbc: slackMock ? new WebMock() : new WebClient(config.slack.api_token),
 };

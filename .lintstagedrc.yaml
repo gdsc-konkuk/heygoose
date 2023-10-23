@@ -1,4 +1,4 @@
-"*.ts":
-    - eslint
-"*":
-    - prettier --ignore-unknown --check
+'*.{ts,js}':
+  - eslint
+'*':
+  - prettier --ignore-unknown --check
