@@ -1,0 +1,22 @@
+extends:
+  - 'airbnb-typescript/base'
+  - 'prettier'
+parserOptions:
+  project: './tsconfig.json'
+reportUnusedDisableDirectives: true
+rules:
+  max-len:
+    - warn
+    - code: 140
+  no-plusplus: off
+  one-var: off
+  no-underscore-dangle: off
+  no-throw-literal: off
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - argsIgnorePattern: '^_'
+      ignoreRestSiblings: true

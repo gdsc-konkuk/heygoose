@@ -8,7 +8,6 @@
     "dev": "NODE_ENV=development nodemon --ignore '/test/*.ts' --watch '*.ts' --exec 'ts-node' ./src/server.ts",
     "mockDB": "ts-node ./test/lib/mockDatabase.ts",
     "test": "NODE_ENV=testing mocha -r ts-node/register test/*-test.ts --exit",
-    "lint": "eslint --ext .ts ./src/ || exit 0",
     "typecheck": "tsc",
     "docker-build": "docker build -t chralp/heyburrito . && docker tag chralp/heyburrito chralp/heyburrito",
     "docker-push": "docker push chralp/heyburrito"
@@ -21,7 +20,7 @@
     "dotenv": "^6.0.0",
     "mongodb": "^3.4.0",
     "ts-node": "^7.0.1",
-    "typescript": "^4.1.6",
+    "typescript": "^3.7.4",
     "ws": "^7.4.6"
   },
   "devDependencies": {
@@ -41,7 +40,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.1",
     "mocha": "10.1.0",
-    "mongodb-memory-server": "5.2.7",
+    "mongodb-memory-server": "5.2.11",
     "nodemon": "^2.0.2",
     "prettier": "^3.0.3",
     "proxyquire": "^2.1.3",

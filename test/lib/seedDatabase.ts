@@ -5,7 +5,6 @@ import config from '../../src/config';
 import { env, pathExists, createPath } from '../../src/lib/utils';
 
 import databaseDrivers from '../../src/database/drivers';
-// eslint-disable-next-line
 import BurritoStore from '../../src/store/BurritoStore';
 import Localstore from '../../src/store/LocalStore';
 import WBCHandler from '../../src/slack/Wbc';
@@ -78,7 +77,10 @@ async function init({ driver = config.db.db_driver, random, seedDB = true }) {
     mongod = new MongoMemoryServer();
     const uri = await mongod.getConnectionString();
     const database = await mongod.getDbName();
-    mongoDriver = databaseDrivers[driver]({ db_uri: uri, db_name: database });
+    mongoDriver = databaseDrivers[driver]({
+      db_uri: uri,
+      db_name: database,
+    });
     BurritoStore.setDatabase(mongoDriver);
   } else {
     BurritoStore.setDatabase(databaseDrivers[driver]());

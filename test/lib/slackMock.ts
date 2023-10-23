@@ -1,27 +1,26 @@
-import { wbcList } from '../data/slackUsers'
+/* eslint-disable max-classes-per-file */
+
 import { EventEmitter } from 'events';
+import { wbcList } from '../data/slackUsers';
 
 class RTMMock extends EventEmitter {
+  // eslint-disable-next-line class-methods-use-this
+  start() {
+    return Promise.resolve(true);
+  }
 
-    start() {
-        return Promise.resolve(true);
-    }
-
-    // Function to test emits
-    async publish(message: any) {
-        this.emit('message', message);
-    }
+  // Function to test emits
+  async publish(message: any) {
+    this.emit('message', message);
+  }
 }
 
 class WebMock {
-    users = {
-        list: function() {
-            return Promise.resolve(wbcList)
-        }
-    }
+  users = {
+    list() {
+      return Promise.resolve(wbcList);
+    },
+  };
 }
 
-export {
-    RTMMock,
-    WebMock
-}
+export { RTMMock, WebMock };

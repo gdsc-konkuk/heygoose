@@ -1,7 +1,7 @@
 import { init } from './seedDatabase';
 
-const random = true
+const random = true;
 
-init({ random }).then((data) => {
-    console.log("Database filled with data");
+init({ random }).then((_data) => {
+  console.log('Database filled with data');
 });
