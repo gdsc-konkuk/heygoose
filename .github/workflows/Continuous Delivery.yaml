@@ -52,18 +52,18 @@ jobs:
         run: yarn docker-push
 
       - name: google auth
-        id: "auth"
-        uses: "google-github-actions/auth@v1"
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: "${{ secrets.GCP_SA_KEY }}"
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - name: set up Cloud SDK
-        uses: "google-github-actions/setup-gcloud@v1"
+        uses: 'google-github-actions/setup-gcloud@v1'
         with:
           project_id: ${{ env.PROJECT_ID }}
 
       - name: use gcloud cli
-        run: "gcloud info"
+        run: 'gcloud info'
 
       - name: gcp deploy
         run: |-
