@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+env:
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  GCP_INSTANCE: ${{ secrets.GCP_INSTANCE }}
+  GCP_INSTANCE_ZONE: ${{ secrets.GCP_INSTANCE_ZONE }}
+
 jobs:
   Continuous_Delivery:
     runs-on: ubuntu-22.04
@@ -45,3 +50,28 @@ jobs:
 
       - name: Push to docker-hub
         run: yarn docker-push
+
+      - name: google auth
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: use gcloud cli
+        run: 'gcloud info'
+
+      - name: gcp deploy
+        run: |-
+          gcloud compute instances update-container "${{ env.GCP_INSTANCE }}" \
+            --zone "${{ env.GCP_INSTANCE_ZONE }}" \
+            --container-image "gdsc-konkuk/heygoose"
+
+      - name: gcp reset
+        run: |-
+          gcloud compute instances reset "${{ env.GCP_INSTANCE }}" \
+            --zone "${{ env.GCP_INSTANCE_ZONE }}"
