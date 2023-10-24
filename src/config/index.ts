@@ -63,7 +63,7 @@ const config = {
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 7),
       dailyDecCap: getNum(process.env.SLACK_DAILY_DEC_CAP, 7),
-      enableDecrement: getBool(process.env.ENABLE_DECREMENT, true),
+      enableDecrement: getBool(process.env.ENABLE_DECREMENT, false),
     },
     http: {
       http_port: process.env.PORT || process.env.HTTP_PORT || 3333,
