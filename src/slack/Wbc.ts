@@ -39,7 +39,7 @@ class Wbc {
       text,
       channel: username,
       username: config.slack.bot_name,
-      icon_emoji: ':goose:',
+      icon_emoji: ':duck:',
     });
     if (res.ok) {
       log.info(`Notified user ${username}`);
