@@ -14,7 +14,8 @@ const isFalse = (input: string) =>
 const isTrue = (input: string) =>
   input === 'true' || input === 'yes' || input === '1';
 
-export function fixEmoji(input) {
+export function fixEmoji(input): string {
+  if (!input) return '';
   let inputFix = input;
   if (!input.startsWith(':')) inputFix = `:${inputFix}`;
   if (!input.endsWith(':')) inputFix = `${inputFix}:`;

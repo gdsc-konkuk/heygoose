@@ -26,10 +26,12 @@ interface Updates {
 }
 const emojis: Array<Emojis> = [];
 
-const incEmojis = emojiInc.split(',').map((emoji) => emoji.trim());
-incEmojis.forEach((emoji: string) => emojis.push({ type: 'inc', emoji }));
+if (emojiInc) {
+  const incEmojis = emojiInc.split(',').map((emoji) => emoji.trim());
+  incEmojis.forEach((emoji: string) => emojis.push({ type: 'inc', emoji }));
+}
 
-if (!disableEmojiDec) {
+if (!disableEmojiDec && emojiDec) {
   const decEmojis = emojiDec.split(',').map((emoji) => emoji.trim());
   decEmojis.forEach((emoji: string) => emojis.push({ type: 'dec', emoji }));
 }
