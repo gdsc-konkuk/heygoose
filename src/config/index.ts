@@ -58,7 +58,7 @@ const config = {
     slack: {
       bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: mustHave('SLACK_API_TOKEN'),
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':duck:'),
       emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 7),
@@ -110,7 +110,7 @@ const config = {
     slack: {
       bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: mustHave('SLACK_API_TOKEN'),
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':duck:'),
       emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 5000),
@@ -153,7 +153,7 @@ const config = {
     slack: {
       bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: process.env.SLACK_API_TOKEN || '',
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':duck:'),
       emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 5000),
