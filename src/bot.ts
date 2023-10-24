@@ -1,5 +1,5 @@
 import config from './config';
-import BurritoStore from './store/BurritoStore';
+import GooseStore from './store/GooseStore';
 import LocalStore from './store/LocalStore';
 import { parseMessage } from './lib/parseMessage';
 import { validBotMention, validMessage } from './lib/validator';
@@ -34,14 +34,14 @@ if (!disableEmojiDec) {
   decEmojis.forEach((emoji: string) => emojis.push({ type: 'dec', emoji }));
 }
 
-const giveBurritos = async (giver: string, updates: Updates[]) =>
+const giveGeese = async (giver: string, updates: Updates[]) =>
   updates.reduce(
-    async (prev: any, burrito) =>
+    async (prev: any, goose) =>
       prev.then(async () => {
-        if (burrito.type === 'inc') {
-          await BurritoStore.giveBurrito(burrito.username, giver);
-        } else if (burrito.type === 'dec') {
-          await BurritoStore.takeAwayBurrito(burrito.username, giver);
+        if (goose.type === 'inc') {
+          await GooseStore.giveGoose(goose.username, giver);
+        } else if (goose.type === 'dec') {
+          await GooseStore.takeAwayGoose(goose.username, giver);
         }
       }),
     Promise.resolve()
@@ -49,50 +49,46 @@ const giveBurritos = async (giver: string, updates: Updates[]) =>
 
 const notifyUser = (user: string, message: string) => Wbc.sendDM(user, message);
 
-const handleBurritos = async (giver: string, updates: Updates[]) => {
+const handleGeese = async (giver: string, updates: Updates[]) => {
   if (enableDecrement) {
-    const burritos = await BurritoStore.givenBurritosToday(giver, 'from');
-    const diff = dailyCap - burritos;
+    const geese = await GooseStore.givenGeeseToday(giver, 'from');
+    const diff = dailyCap - geese;
     if (updates.length > diff) {
       notifyUser(
         giver,
-        `You are trying to give away ${updates.length} burritos, but you only have ${diff} burritos left today!`
+        `You are trying to give away ${updates.length} geese, but you only have ${diff} geese left today!`
       );
       return false;
     }
-    if (burritos >= dailyCap) {
+    if (geese >= dailyCap) {
       return false;
     }
-    await giveBurritos(giver, updates);
+    await giveGeese(giver, updates);
   } else {
-    const givenBurritos = await BurritoStore.givenToday(giver, 'from', 'inc');
-    const givenRottenBurritos = await BurritoStore.givenToday(
-      giver,
-      'from',
-      'dec'
-    );
+    const givenGeese = await GooseStore.givenToday(giver, 'from', 'inc');
+    const givenRottenGeese = await GooseStore.givenToday(giver, 'from', 'dec');
     const incUpdates = updates.filter((x) => x.type === 'inc');
     const decUpdates = updates.filter((x) => x.type === 'dec');
-    const diffInc = dailyCap - givenBurritos;
-    const diffDec = dailyDecCap - givenRottenBurritos;
+    const diffInc = dailyCap - givenGeese;
+    const diffDec = dailyDecCap - givenRottenGeese;
     if (incUpdates.length) {
       if (incUpdates.length > diffInc) {
         notifyUser(
           giver,
-          `You are trying to give away ${updates.length} burritos, but you only have ${diffInc} burritos left today!`
+          `You are trying to give away ${updates.length} geese, but you only have ${diffInc} geese left today!`
         );
       } else {
-        await giveBurritos(giver, incUpdates);
+        await giveGeese(giver, incUpdates);
       }
     }
     if (decUpdates.length) {
       if (decUpdates.length > diffDec) {
         notifyUser(
           giver,
-          `You are trying to give away ${updates.length} rottenburritos, but you only have ${diffDec} rottenburritos left today!`
+          `You are trying to give away ${updates.length} rottengeese, but you only have ${diffDec} rottengeese left today!`
         );
       } else {
-        await giveBurritos(giver, decUpdates);
+        await giveGeese(giver, decUpdates);
       }
     }
   }
@@ -109,7 +105,7 @@ const start = () => {
         if (result) {
           const { giver, updates } = result;
           if (updates.length) {
-            await handleBurritos(giver, updates);
+            await handleGeese(giver, updates);
           }
         }
       }
@@ -117,4 +113,4 @@ const start = () => {
   });
 };
 
-export { handleBurritos, notifyUser, start };
+export { handleGeese, notifyUser, start };

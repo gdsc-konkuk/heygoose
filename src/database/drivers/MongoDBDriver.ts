@@ -50,7 +50,7 @@ class MongoDBDriver {
   }
 
   give(to: string, from: string, date: any) {
-    return this.store('burritos', {
+    return this.store('geese', {
       to,
       from,
       value: 1,
@@ -59,7 +59,7 @@ class MongoDBDriver {
   }
 
   takeAway(to: string, from: string, date: any) {
-    return this.store('burritos', {
+    return this.store('geese', {
       to,
       from,
       value: -1,
@@ -68,7 +68,7 @@ class MongoDBDriver {
   }
 
   /**
-   * @param { string } collection -  like burrito
+   * @param { string } collection -  like goose
    * @param { Object } query - searchObject to search for
    * @return { Find[] }
    */
@@ -78,7 +78,7 @@ class MongoDBDriver {
   }
 
   /**
-   * @param { string } collection - burrito
+   * @param { string } collection - goose
    * @param { string | null } match - matchObject to search for
    * @param { string } listType - defaults to 'to'
    * @return { Object } sum[] - data
@@ -105,7 +105,7 @@ class MongoDBDriver {
    * @returns {Find[]}
    */
   findFromToday(user: string, listType: string): Promise<Find[]> {
-    return this.find('burritos', {
+    return this.find('geese', {
       [listType]: user,
       given_at: {
         $gte: time().start,
@@ -124,16 +124,16 @@ class MongoDBDriver {
     const match = { [listType]: user };
 
     if (num) {
-      const data = await this.sum('burritos', match, listType);
+      const data = await this.sum('geese', match, listType);
       return data.length ? data[0].score : 0;
     }
-    return this.find('burritos', match);
+    return this.find('geese', match);
   }
 
   /**
    * Returns scoreboard
-   * Should be able to return burrito List ( scoreType inc ) and
-   * listtype ( dec ) AKA rottenburritoList
+   * Should be able to return goose List ( scoreType inc ) and
+   * listtype ( dec ) AKA rottengooseList
    */
   async getScoreBoard({ user, listType, today }) {
     let match: any = {};
@@ -144,7 +144,7 @@ class MongoDBDriver {
     if (today) {
       match.given_at = { $gte: time().start, $lt: time().end };
     }
-    return this.find('burritos', match);
+    return this.find('geese', match);
   }
 }
 

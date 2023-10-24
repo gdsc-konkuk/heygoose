@@ -27,7 +27,7 @@ class Wbc {
       arr.push({
         id: x.id,
         name: x.is_bot ? x.name : x.real_name,
-        memberType: x.is_restricted ? 'guest' : 'member',
+        memberType: x.is_restricted ? 'goose' : 'member',
         avatar: x.profile.image_48,
       });
     });
@@ -39,7 +39,7 @@ class Wbc {
       text,
       channel: username,
       username: config.slack.bot_name,
-      icon_emoji: ':burrito:',
+      icon_emoji: ':goose:',
     });
     if (res.ok) {
       log.info(`Notified user ${username}`);
