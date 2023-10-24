@@ -21,7 +21,7 @@ const proxyquire = require('proxyquire').noCallThru();
 let mongod: any, mongoDriver: any;
 let getScoreBoard: any,
   getUserStats: any,
-  givenBurritosToday: any,
+  givenGeeseToday: any,
   getUserScore: any;
 
 // eslint-disable-next-line @typescript-eslint/camelcase
@@ -35,7 +35,7 @@ const loadMiddleware = ({ enable_decrement }) => {
   getScoreBoard = funcs.getScoreBoard;
   getUserStats = funcs.getUserStats;
   getUserScore = funcs.getUserScore;
-  givenBurritosToday = funcs.givenBurritosToday;
+  givenGeeseToday = funcs.givenGeeseToday;
 };
 
 describe('middleware-test', async () => {
@@ -192,33 +192,33 @@ describe('middleware-test', async () => {
         });
       });
 
-      describe('givenBurritosToday', async () => {
-        it('Should return givenBurritosToday stats for USER1', async () => {
-          const res = await givenBurritosToday('USER1');
+      describe('givenGeeseToday', async () => {
+        it('Should return givenGeeseToday stats for USER1', async () => {
+          const res = await givenGeeseToday('USER1');
           expect(res).to.deep.equal({
             givenToday: 9,
             receivedToday: 6,
           });
         });
 
-        it('Should return givenBurritosToday stats for USER2', async () => {
-          const res = await givenBurritosToday('USER2');
+        it('Should return givenGeeseToday stats for USER2', async () => {
+          const res = await givenGeeseToday('USER2');
           expect(res).to.deep.equal({
             givenToday: 8,
             receivedToday: 9,
           });
         });
 
-        it('Should return givenBurritosToday stats for USER3', async () => {
-          const res = await givenBurritosToday('USER3');
+        it('Should return givenGeeseToday stats for USER3', async () => {
+          const res = await givenGeeseToday('USER3');
           expect(res).to.deep.equal({
             givenToday: 5,
             receivedToday: 6,
           });
         });
 
-        it('Should return givenBurritosToday stats for USER4', async () => {
-          const res = await givenBurritosToday('USER4');
+        it('Should return givenGeeseToday stats for USER4', async () => {
+          const res = await givenGeeseToday('USER4');
           expect(res).to.deep.equal({
             givenToday: 5,
             receivedToday: 6,

@@ -7,15 +7,15 @@ describe('/app/lib/validator', () => {
   beforeEach(() => {
     res = null;
     // emojis = [
-    //   { type: "inc", emoji: ":burrito:" },
-    //   { type: "dec", emoji: ":rottenburrito:" },
+    //   { type: "inc", emoji: ":goose:" },
+    //   { type: "dec", emoji: ":rottengoose:" },
     // ];
 
     storedBots = [
       {
-        id: 'HEYBURRITO',
-        name: 'heyburrito',
-        avatar: 'https://burrito.web.png',
+        id: 'HEYGOOSE',
+        name: 'heygoose',
+        avatar: 'https://goose.web.png',
       },
       {
         id: 'slackbot',
@@ -28,7 +28,7 @@ describe('/app/lib/validator', () => {
   describe('sentFromBot', () => {
     it('should return true', () => {
       msg = {
-        user: 'HEYBURRITO',
+        user: 'HEYGOOSE',
         text: 'hejsan',
       };
 
@@ -51,7 +51,7 @@ describe('/app/lib/validator', () => {
     it('should return true', () => {
       msg = {
         user: 'USER1',
-        text: 'hello <@HEYBURRITO>',
+        text: 'hello <@HEYGOOSE>',
       };
 
       res = sentToBot(msg, storedBots);

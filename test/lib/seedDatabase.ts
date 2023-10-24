@@ -5,7 +5,7 @@ import config from '../../src/config';
 import { env, pathExists, createPath } from '../../src/lib/utils';
 
 import databaseDrivers from '../../src/database/drivers';
-import BurritoStore from '../../src/store/BurritoStore';
+import GooseStore from '../../src/store/GooseStore';
 import Localstore from '../../src/store/LocalStore';
 import WBCHandler from '../../src/slack/Wbc';
 import slack from '../../src/slack';
@@ -29,10 +29,10 @@ function pickRandomDate(start, end) {
 }
 
 async function give(to, from, date) {
-  await BurritoStore.giveBurrito(to, from, date);
+  await GooseStore.giveGoose(to, from, date);
 }
 async function takeaway(to, from, date) {
-  await BurritoStore.takeAwayBurrito(to, from, date);
+  await GooseStore.takeAwayGoose(to, from, date);
 }
 
 function pickRandom(input) {
@@ -81,9 +81,9 @@ async function init({ driver = config.db.db_driver, random, seedDB = true }) {
       db_uri: uri,
       db_name: database,
     });
-    BurritoStore.setDatabase(mongoDriver);
+    GooseStore.setDatabase(mongoDriver);
   } else {
-    BurritoStore.setDatabase(databaseDrivers[driver]());
+    GooseStore.setDatabase(databaseDrivers[driver]());
   }
 
   if (!seedDB) {
@@ -101,8 +101,8 @@ async function init({ driver = config.db.db_driver, random, seedDB = true }) {
         toUser = pickRandom('user');
       }
 
-      const typeBurrito = TYPES[Math.floor(Math.random() * TYPES.length)];
-      switch (typeBurrito) {
+      const typeGoose = TYPES[Math.floor(Math.random() * TYPES.length)];
+      switch (typeGoose) {
         case 'give':
           // eslint-disable-next-line no-await-in-loop
           await give(toUser, fromUser, pickRandomDate(oneWeek, today));

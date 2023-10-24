@@ -5,11 +5,11 @@ let msg, resultShouldBe, res, emojis; // joinedChannel, pingUser, dmToBot, kicke
 
 before(() => {
   emojis = [
-    { type: 'inc', emoji: ':burrito:' },
-    { type: 'dec', emoji: ':rottenburrito:' },
+    { type: 'inc', emoji: ':goose:' },
+    { type: 'dec', emoji: ':rottengoose:' },
   ];
 
-  // Hey burrito joinade en kanal
+  // Hey goose joinade en kanal
   //   joinedChannel = {
   //     user: "UF34A58AC",
   //     inviter: "UEKN9GNAJ",
@@ -18,10 +18,10 @@ before(() => {
   //       image_72:
   //         "https://avatars.slack-edge.com/2018-12-30/513714034820_a940dfda23784468d1f2_72.png",
   //       first_name: "",
-  //       real_name: "heyburrito",
+  //       real_name: "heygoose",
   //       display_name: "",
   //       team: "TEKBZBLVD",
-  //       name: "heyburrito",
+  //       name: "heygoose",
   //       is_restricted: false,
   //       is_ultra_restricted: false,
   //     },
@@ -45,7 +45,7 @@ before(() => {
   //     ts: "1546225857.000800",
   //   };
 
-  //   //direkt meddelande till heyburrito privat
+  //   //direkt meddelande till heygoose privat
   //   dmToBot = {
   //     type: "message",
   //     user: "UEKN9GNAJ",
@@ -97,7 +97,7 @@ describe('parseMessage-test', () => {
   describe('parseUsername', () => {
     it('should return 2 unique usernames', () => {
       msg = {
-        text: '<@USER2><@USER2><@USER3>:burrito: :burrito: :rottenburrito: user2',
+        text: '<@USER2><@USER2><@USER3>:goose: :goose: :rottengoose: user2',
       };
       resultShouldBe = ['USER2', 'USER3'];
       res = parseUsernames(msg.text);
@@ -106,7 +106,7 @@ describe('parseMessage-test', () => {
 
     it('should not return any usernames', () => {
       msg = {
-        text: '<@USER2 @USER2> <USER3>:burrito: :burrito: :rottenburrito: user2',
+        text: '<@USER2 @USER2> <USER3>:goose: :goose: :rottengoose: user2',
       };
       res = parseUsernames(msg.text);
       expect(res).to.deep.equal([]);
@@ -117,7 +117,7 @@ describe('parseMessage-test', () => {
     it('should return 2 INC updates, one user', () => {
       msg = {
         user: 'USER1',
-        text: '<@USER2>:burrito: :burrito:',
+        text: '<@USER2>:goose: :goose:',
       };
 
       resultShouldBe = {
@@ -134,7 +134,7 @@ describe('parseMessage-test', () => {
     it('should return 4 INC updates, two users', () => {
       msg = {
         user: 'USER1',
-        text: '<@USER2> <@USER3> :burrito: :burrito:',
+        text: '<@USER2> <@USER3> :goose: :goose:',
       };
 
       resultShouldBe = {
@@ -150,10 +150,10 @@ describe('parseMessage-test', () => {
       expect(res).to.deep.equal(resultShouldBe);
     });
 
-    it('should return 4 INC updates, two users, burrito before user', () => {
+    it('should return 4 INC updates, two users, goose before user', () => {
       msg = {
         user: 'USER1',
-        text: ':burrito: :burrito: <@USER2> <@USER3>',
+        text: ':goose: :goose: <@USER2> <@USER3>',
       };
 
       resultShouldBe = {
@@ -172,7 +172,7 @@ describe('parseMessage-test', () => {
     it('should return 2 DEC updates, one user', () => {
       msg = {
         user: 'USER1',
-        text: '<@USER2>:rottenburrito: :rottenburrito:',
+        text: '<@USER2>:rottengoose: :rottengoose:',
       };
 
       resultShouldBe = {
@@ -189,7 +189,7 @@ describe('parseMessage-test', () => {
     it('should return 4 DEC updates, two users', () => {
       msg = {
         user: 'USER1',
-        text: '<@USER2> <@USER3> :rottenburrito: :rottenburrito:',
+        text: '<@USER2> <@USER3> :rottengoose: :rottengoose:',
       };
 
       resultShouldBe = {
@@ -208,7 +208,7 @@ describe('parseMessage-test', () => {
     it('should return 2 INC and 1 DEC updates, two users', () => {
       msg = {
         user: 'USER1',
-        text: '<@USER2> <@USER3> :burrito::burrito: :rottenburrito:',
+        text: '<@USER2> <@USER3> :goose::goose: :rottengoose:',
       };
 
       resultShouldBe = {

@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-import BurritoStore from '../src/store/BurritoStore';
+import GooseStore from '../src/store/GooseStore';
 import { init } from './lib/seedDatabase';
 
 let mongod: any, mongoDriver: any;
 
-describe('Burritostore-test', async () => {
+describe('Goosestore-test', async () => {
   [
     {
       describe: 'file Driver',
@@ -47,12 +47,12 @@ describe('Burritostore-test', async () => {
         await closeDB();
       });
 
-      describe('giveBurrito', async () => {
-        it('Should give burrito and return event', async () => {
-          const res1 = await BurritoStore.giveBurrito('USER1', 'USER2');
-          const res2 = await BurritoStore.giveBurrito('USER1', 'USER2');
-          const res3 = await BurritoStore.giveBurrito('USER2', 'USER1');
-          const res4 = await BurritoStore.giveBurrito('USER2', 'USER1');
+      describe('giveGoose', async () => {
+        it('Should give goose and return event', async () => {
+          const res2 = await GooseStore.giveGoose('USER1', 'USER2');
+          const res3 = await GooseStore.giveGoose('USER2', 'USER1');
+          const res1 = await GooseStore.giveGoose('USER1', 'USER2');
+          const res4 = await GooseStore.giveGoose('USER2', 'USER1');
           expect(res1).to.equal('USER1');
           expect(res2).to.equal('USER1');
           expect(res3).to.equal('USER2');
@@ -60,17 +60,17 @@ describe('Burritostore-test', async () => {
         });
       });
 
-      describe('takeAwayBurrito', () => {
-        it('Should not takeaway burrito, lowset score is 0', async () => {
-          const res = await BurritoStore.takeAwayBurrito('USER3', 'USER1');
+      describe('takeAwayGoose', () => {
+        it('Should not takeaway goose, lowset score is 0', async () => {
+          const res = await GooseStore.takeAwayGoose('USER3', 'USER1');
           expect(res).to.deep.equal([]);
         });
 
-        it('Should take away burrito', async () => {
-          const res1 = await BurritoStore.takeAwayBurrito('USER1', 'USER2');
-          const res2 = await BurritoStore.takeAwayBurrito('USER1', 'USER2');
-          const res3 = await BurritoStore.takeAwayBurrito('USER2', 'USER1');
-          const res4 = await BurritoStore.takeAwayBurrito('USER2', 'USER1');
+        it('Should take away goose', async () => {
+          const res1 = await GooseStore.takeAwayGoose('USER1', 'USER2');
+          const res2 = await GooseStore.takeAwayGoose('USER1', 'USER2');
+          const res3 = await GooseStore.takeAwayGoose('USER2', 'USER1');
+          const res4 = await GooseStore.takeAwayGoose('USER2', 'USER1');
           expect(res1).to.equal('USER1');
           expect(res2).to.equal('USER1');
           expect(res3).to.equal('USER2');
@@ -80,7 +80,7 @@ describe('Burritostore-test', async () => {
 
       describe('getUserStats', () => {
         it('Should return userstats for USER1', async () => {
-          const res = await BurritoStore.getUserStats('USER1');
+          const res = await GooseStore.getUserStats('USER1');
           expect(res).to.deep.equal({
             receivedToday: 4,
             givenToday: 4,
@@ -91,7 +91,7 @@ describe('Burritostore-test', async () => {
         });
 
         it('Should return userstats for USER2', async () => {
-          const res = await BurritoStore.getUserStats('USER2');
+          const res = await GooseStore.getUserStats('USER2');
           expect(res).to.deep.equal({
             receivedToday: 4,
             givenToday: 4,
@@ -101,22 +101,22 @@ describe('Burritostore-test', async () => {
           });
         });
 
-        describe('givenBurritosToday', () => {
-          it('Should return givenBurritosToday stats for USER1 lisyType: to', async () => {
-            const res = await BurritoStore.givenBurritosToday('USER1', 'to');
+        describe('givenGeeseToday', () => {
+          it('Should return givenGeeseToday stats for USER1 lisyType: to', async () => {
+            const res = await GooseStore.givenGeeseToday('USER1', 'to');
             expect(res).to.equal(4);
           });
-          it('Should return givenBurritosToday stats for USER1 lisyType: from', async () => {
-            const res = await BurritoStore.givenBurritosToday('USER1', 'from');
+          it('Should return givenGeeseToday stats for USER1 lisyType: from', async () => {
+            const res = await GooseStore.givenGeeseToday('USER1', 'from');
             expect(res).to.equal(4);
           });
 
-          it('Should return givenBurritosToday stats for USER2 lisyType: to', async () => {
-            const res = await BurritoStore.givenBurritosToday('USER2', 'to');
+          it('Should return givenGeeseToday stats for USER2 lisyType: to', async () => {
+            const res = await GooseStore.givenGeeseToday('USER2', 'to');
             expect(res).to.equal(4);
           });
-          it('Should return givenBurritosToday stats for USER2 lisyType: from', async () => {
-            const res = await BurritoStore.givenBurritosToday('USER2', 'from');
+          it('Should return givenGeeseToday stats for USER2 lisyType: from', async () => {
+            const res = await GooseStore.givenGeeseToday('USER2', 'from');
             expect(res).to.equal(4);
           });
         });
