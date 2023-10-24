@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { init } from './lib/seedDatabase';
-import BurritoStore from '../src/store/BurritoStore';
+import GooseStore from '../src/store/GooseStore';
 
 const proxyquire = require('proxyquire').noCallThru();
 
-let mongod: any, mongoDriver: any, handleBurritos: any;
+let mongod: any, mongoDriver: any, handleGeese: any;
 
 // eslint-disable-next-line @typescript-eslint/camelcase
 const loadMiddleware = ({ enable_decrement }) => {
@@ -14,8 +14,8 @@ const loadMiddleware = ({ enable_decrement }) => {
         enableDecrement: enable_decrement,
         dailyCap: 5,
         dailyDecCap: 5,
-        emojiInc: ' :burrito: ',
-        emojiDec: ':rottenburrito:',
+        emojiInc: ' :goose: ',
+        emojiDec: ':rottengoose:',
         disableEmojiDec: false,
       },
     },
@@ -24,7 +24,7 @@ const loadMiddleware = ({ enable_decrement }) => {
     },
   });
 
-  handleBurritos = bot.handleBurritos;
+  handleGeese = bot.handleGeese;
 };
 
 describe('bot-test', async () => {
@@ -77,8 +77,8 @@ describe('bot-test', async () => {
         await closeDB();
       });
 
-      describe('handleBurritos', async () => {
-        it('Should give burritos, enable_decrement: true', async () => {
+      describe('handleGeese', async () => {
+        it('Should give geese, enable_decrement: true', async () => {
           const updates = [
             {
               username: 'USER2',
@@ -102,12 +102,12 @@ describe('bot-test', async () => {
             },
           ];
 
-          await handleBurritos('USER1', updates);
-          const givenToday = await BurritoStore.givenToday('USER1', 'from');
+          await handleGeese('USER1', updates);
+          const givenToday = await GooseStore.givenToday('USER1', 'from');
           expect(givenToday).to.equal(5);
         });
 
-        it('Should not give burritos, enable_decrement: true', async () => {
+        it('Should not give geese, enable_decrement: true', async () => {
           await reset();
           const updates = [
             {
@@ -136,12 +136,12 @@ describe('bot-test', async () => {
             },
           ];
 
-          await handleBurritos('USER1', updates);
-          const givenToday = await BurritoStore.givenToday('USER1', 'from');
+          await handleGeese('USER1', updates);
+          const givenToday = await GooseStore.givenToday('USER1', 'from');
           expect(givenToday).to.equal(0);
         });
 
-        it('should give burritos, enable_decrement: false', async () => {
+        it('should give geese, enable_decrement: false', async () => {
           await reset(false);
           const updates = [
             {
@@ -169,13 +169,13 @@ describe('bot-test', async () => {
               type: 'dec',
             },
           ];
-          /* const gg = */ await handleBurritos('USER1', updates);
-          const givenTodayInc = await BurritoStore.givenToday(
+          /* const gg = */ await handleGeese('USER1', updates);
+          const givenTodayInc = await GooseStore.givenToday(
             'USER1',
             'from',
             'inc'
           );
-          const givenTodayDec = await BurritoStore.givenToday(
+          const givenTodayDec = await GooseStore.givenToday(
             'USER1',
             'from',
             'dec'
@@ -184,7 +184,7 @@ describe('bot-test', async () => {
           expect(givenTodayDec).to.equal(2);
         });
 
-        it('should not give burritos, enable_decrement: false', async () => {
+        it('should not give geese, enable_decrement: false', async () => {
           await reset(false);
           const updates = [
             {
@@ -212,8 +212,8 @@ describe('bot-test', async () => {
               type: 'inc',
             },
           ];
-          /* const gg = */ await handleBurritos('USER1', updates);
-          const givenTodayInc = await BurritoStore.givenToday(
+          /* const gg = */ await handleGeese('USER1', updates);
+          const givenTodayInc = await GooseStore.givenToday(
             'USER1',
             'from',
             'inc'

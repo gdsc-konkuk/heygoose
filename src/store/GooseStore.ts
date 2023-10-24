@@ -30,7 +30,7 @@ interface DatabasePost {
   given_at: Date;
 }
 
-class BurritoStore extends EventEmitter {
+class GooseStore extends EventEmitter {
   database: any = null;
 
   // Set and Store database object
@@ -38,23 +38,23 @@ class BurritoStore extends EventEmitter {
     this.database = database;
   }
 
-  async giveBurrito(
+  async giveGoose(
     to: string,
     from: string,
     date = new Date()
   ): Promise<string> {
-    log.info(`Burrito given to ${to} from ${from}`);
+    log.info(`Goose given to ${to} from ${from}`);
     await this.database.give(to, from, date);
     this.emit('GIVE', to, from);
     return to;
   }
 
-  async takeAwayBurrito(
+  async takeAwayGoose(
     to: string,
     from: string,
     date = new Date()
   ): Promise<string | []> {
-    log.info(`Burrito taken away from ${to} by ${from}`);
+    log.info(`Goose taken away from ${to} by ${from}`);
     const score: number = await this.database.getScore(to, 'to', true);
     if (!score) return [];
     await this.database.takeAway(to, from, date);
@@ -71,8 +71,8 @@ class BurritoStore extends EventEmitter {
     ] = await Promise.all([
       this.database.getScore(user, 'to'),
       this.database.getScore(user, 'from'),
-      this.givenBurritosToday(user, 'to'),
-      this.givenBurritosToday(user, 'from'),
+      this.givenGeeseToday(user, 'to'),
+      this.givenGeeseToday(user, 'from'),
     ]);
     return {
       receivedToday,
@@ -91,7 +91,7 @@ class BurritoStore extends EventEmitter {
    * @param {string} user - userId
    * @param {string} listType - to / from defaults from
    */
-  async givenBurritosToday(user: string, listType: string): Promise<number> {
+  async givenGeeseToday(user: string, listType: string): Promise<number> {
     const givenToday: Find[] = await this.database.findFromToday(
       user,
       listType
@@ -130,4 +130,4 @@ class BurritoStore extends EventEmitter {
   }
 }
 
-export default new BurritoStore();
+export default new GooseStore();

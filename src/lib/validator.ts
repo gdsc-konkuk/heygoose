@@ -26,11 +26,11 @@ function sentToBot(message: any, allBots: any) {
   return !!toBot.length;
 }
 
-function burritoToBot(message: any, emojis: any) {
-  const burritoSentToBot = emojis.filter((x: any) =>
+function gooseToBot(message: any, emojis: any) {
+  const gooseSentToBot = emojis.filter((x: any) =>
     message.text.match(`${x.id}`)
   );
-  return !!burritoSentToBot.length;
+  return !!gooseSentToBot.length;
 }
 
 function validMessage(message: any, emojis: any, allBots: any): boolean {
@@ -77,5 +77,5 @@ export {
   selfMention,
   sentFromBot,
   sentToBot,
-  burritoToBot,
+  gooseToBot,
 };

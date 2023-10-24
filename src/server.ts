@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import log from 'bog';
 import http from 'http';
-import BurritoStore from './store/BurritoStore';
+import GooseStore from './store/GooseStore';
 import LocalStore from './store/LocalStore';
 import database from './database';
 import config from './config';
@@ -19,10 +19,10 @@ const init = async () => {
 };
 
 init().then(() => {
-  log.info('Staring heyburrito');
+  log.info('Staring heygoose');
 
-  // Configure BurritoStore
-  BurritoStore.setDatabase(database);
+  // Configure GooseStore
+  GooseStore.setDatabase(database);
 
   // Set and start slack services
   const { rtm, wbc } = slack;

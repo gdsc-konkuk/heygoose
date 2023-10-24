@@ -1,7 +1,7 @@
 import config from './config';
 import mapper from './lib/mapper';
 import { sort } from './lib/utils';
-import BurritoStore from './store/BurritoStore';
+import GooseStore from './store/GooseStore';
 
 const { enableLevel, scoreRotation } = config.level;
 
@@ -14,7 +14,7 @@ const { enableLevel, scoreRotation } = config.level;
  * @param {string} listType - to / from
  */
 const getScoreBoard = async (listType: string, scoreType: string) => {
-  const data = await BurritoStore.getScoreBoard({ listType, scoreType });
+  const data = await GooseStore.getScoreBoard({ listType, scoreType });
   const score = [];
   const uniqueUsername = [...new Set(data.map((x) => x[listType]))];
 
@@ -71,7 +71,7 @@ const getScoreBoard = async (listType: string, scoreType: string) => {
 
 const _getUserScoreBoard = async ({ ...args }) => {
   const { listType } = args;
-  const data: any = await BurritoStore.getScoreBoard({ ...args });
+  const data: any = await GooseStore.getScoreBoard({ ...args });
   const score = [];
   const uniqueUsername = [...new Set(data.map((x) => x[listType]))];
   uniqueUsername.forEach((u) => {
@@ -98,7 +98,7 @@ const getUserStats = async (user: string) => {
     givenListToday,
     receivedListToday,
   ] = await Promise.all([
-    BurritoStore.getUserStats(user),
+    GooseStore.getUserStats(user),
     _getUserScoreBoard({ user, listType: 'to' }),
     _getUserScoreBoard({ user, listType: 'from' }),
     _getUserScoreBoard({ user, listType: 'to', today: true }),
@@ -117,10 +117,10 @@ const getUserStats = async (user: string) => {
 /**
  * @param {string} user - Slack userId
  */
-const givenBurritosToday = async (user: string) => {
+const givenGeeseToday = async (user: string) => {
   const [receivedToday, givenToday] = await Promise.all([
-    BurritoStore.givenBurritosToday(user, 'to'),
-    BurritoStore.givenBurritosToday(user, 'from'),
+    GooseStore.givenGeeseToday(user, 'to'),
+    GooseStore.givenGeeseToday(user, 'from'),
   ]);
 
   return {
@@ -137,7 +137,7 @@ const getUserScore = async (
   listType: string,
   scoreType: string
 ) => {
-  const scoreList = await BurritoStore.getScoreBoard({ listType, scoreType });
+  const scoreList = await GooseStore.getScoreBoard({ listType, scoreType });
   const userScore = scoreList.filter((x) => x[listType] === user);
 
   const scoreTypeFilter = scoreType === 'inc' ? 1 : -1;
@@ -174,4 +174,4 @@ const getUserScore = async (
   };
 };
 
-export { getScoreBoard, getUserStats, givenBurritosToday, getUserScore };
+export { getScoreBoard, getUserStats, givenGeeseToday, getUserScore };

@@ -3,7 +3,7 @@ import Route from './Route';
 import {
   getScoreBoard,
   getUserStats,
-  givenBurritosToday,
+  givenGeeseToday,
   getUserScore,
 } from '../middleware';
 import config from '../config';
@@ -46,7 +46,7 @@ Route.add({
         };
       }
 
-      const score = await givenBurritosToday(user);
+      const score = await givenGeeseToday(user);
 
       const data = {
         error: false,
