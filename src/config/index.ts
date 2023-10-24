@@ -41,7 +41,7 @@ const config = {
   production: {
     db: {
       db_driver: process.env.DATABASE_DRIVER || 'file',
-      db_fileName: 'burrito-prod.db',
+      db_fileName: 'goose-prod.db',
       db_path: process.env.DATABASE_PATH || `${root}data/`,
       db_url:
         process.env.DATABASE_DRIVER === 'mongodb'
@@ -56,10 +56,10 @@ const config = {
         `${process.env.MONGODB_URL}/${process.env.MONGODB_DATABASE}`,
     },
     slack: {
-      bot_name: process.env.BOT_NAME || 'heyburrito',
+      bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: mustHave('SLACK_API_TOKEN'),
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':burrito:'),
-      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottenburrito:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottengoose:'),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 5),
       dailyDecCap: getNum(process.env.SLACK_DAILY_DEC_CAP, 5),
@@ -70,7 +70,7 @@ const config = {
       wss_port: process.env.WSS_PORT || 3334,
       web_path: process.env.WEB_PATH
         ? fixPath(process.env.WEB_PATH)
-        : '/heyburrito/',
+        : '/heygoose/',
       api_path: process.env.API_PATH ? fixPath(process.env.API_PATH) : '/api/',
     },
     theme: {
@@ -93,7 +93,7 @@ const config = {
   development: {
     db: {
       db_driver: process.env.DATABASE_DRIVER || 'file',
-      db_fileName: 'burrito-dev.db',
+      db_fileName: 'goose-dev.db',
       db_path: process.env.DATABASE_PATH || `${root}data/`,
       db_url:
         process.env.DATABASE_DRIVER === 'mongodb'
@@ -108,10 +108,10 @@ const config = {
         `${process.env.MONGODB_URL}/${process.env.MONGODB_DATABASE}`,
     },
     slack: {
-      bot_name: process.env.BOT_NAME || 'heyburrito',
+      bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: mustHave('SLACK_API_TOKEN'),
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':burrito:'),
-      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottenburrito:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottengoose:'),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 5000),
       dailyDecCap: getNum(process.env.SLACK_DAILY_DEC_CAP, 5000),
@@ -122,7 +122,7 @@ const config = {
       wss_port: getNum(process.env.WSS_PORT, 3334),
       web_path: process.env.WEB_PATH
         ? fixPath(process.env.WEB_PATH)
-        : '/heyburrito/',
+        : '/heygoose/',
       api_path: process.env.API_PATH ? fixPath(process.env.API_PATH) : '/api/',
     },
     theme: {
@@ -138,23 +138,23 @@ const config = {
       scoreRotation: getNum(process.env.SCORE_ROTATION, 500),
     },
     misc: {
-      slackMock: true,
+      slackMock: false,
       log_level: process.env.LOG_LEVEL || 'debug',
     },
   },
   testing: {
     db: {
       db_driver: process.env.DATABASE_DRIVER || 'file',
-      db_fileName: 'burrito-test.db',
+      db_fileName: 'goose-test.db',
       db_path: process.env.DATABASE_PATH || `${root}data/`,
       db_url: '',
       db_name: '',
     },
     slack: {
-      bot_name: process.env.BOT_NAME || 'heyburrito',
+      bot_name: process.env.BOT_NAME || 'heygoose',
       api_token: process.env.SLACK_API_TOKEN || '',
-      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':burrito:'),
-      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottenburrito:'),
+      emojiInc: fixEmoji(process.env.SLACK_EMOJI_INC || ':goose:'),
+      emojiDec: fixEmoji(process.env.SLACK_EMOJI_DEC || ':rottengoose:'),
       disableEmojiDec: getBool(process.env.DISABLE_EMOJI_DEC, false),
       dailyCap: getNum(process.env.SLACK_DAILY_CAP, 5000),
       dailyDecCap: getNum(process.env.SLACK_DAILY_DEC_CAP, 5000),
@@ -165,7 +165,7 @@ const config = {
       wss_port: process.env.WSS_PORT || 3334,
       web_path: process.env.WEB_PATH
         ? fixPath(process.env.WEB_PATH)
-        : '/heyburrito/',
+        : '/heygoose/',
       api_path: process.env.API_PATH ? fixPath(process.env.API_PATH) : '/api/',
     },
     theme: {
